@@ -1,7 +1,7 @@
 ## `laser-interferometry`
 [![Build Status](https://travis-ci.org/LaGuer/laser-interferometry.svg?branch=master)](https://travis-ci.org/LaGuer/laser-interferometry) 
 [![codecov](https://codecov.io/gh/LaGuer/laser-interferometry/branch/master/graph/badge.svg)](https://codecov.io/gh/LaGuer/laser-interferometry)
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/LaGuer/laser-interferometry/master?urlpath=lab/tree/02_Plane_waves/01_Fabry_Perot_cavity/01_Resonance.ipynb) Jupyter Lab Access
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/LaGuer/laser-interferometry/master/) 
 [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/LaGuer/laser-interferometry/blob/master/02_Plane_waves/01_Fabry_Perot_cavity/01_Resonance.ipynb)
 [![nbviewer](https://img.shields.io/badge/view%20on-nbviewer-brightgreen.svg)](https://nbviewer.jupyter.org/github/LaGuer/laser-interferometry/blob/master/02_Plane_waves/01_Fabry_Perot_cavity/01_Resonance.ipynb)
 
@@ -20,7 +20,7 @@
 	   * 2.1.4 - [Linewidth](https://github.com/LaGuer/laser-interferometry/blob/master/02_Plane_waves/01_Fabry_Perot_cavity/04_Linewidth.ipynb)
 	 * 2.2 - Michelson interferometer
 	   * 2.2.1 - [Arm length difference](https://github.com/LaGuer/laser-interferometry/blob/master/02_Plane_waves/02_Michelson_interferometer/01_Arm_length_difference.ipynb)
-	 * 2.3 - Optical modulation
+	 * 2.3 - `Optical modulation`
 	   * 2.3.1 - [Phase and frequency modulation](https://github.com/LaGuer/laser-interferometry/blob/master/02_Plane_waves/03_Optical_modulation/01_Phase_and_frequency_modulation.ipynb)
 	   * 2.3.2 - [Amplitude modulation](https://github.com/LaGuer/laser-interferometry/blob/master/02_Plane_waves/03_Optical_modulation/02_Amplitude_modulation.ipynb)
 	   * 2.3.3 - [Optical beat](https://github.com/LaGuer/laser-interferometry/blob/master/02_Plane_waves/03_Optical_modulation/03_Optical_beat.ipynb)
