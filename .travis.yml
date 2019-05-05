@@ -98,7 +98,7 @@ before_install:
 install: 
   - pip3 install --upgrade pip  # all three OSes agree about 'pip3'
 #  - pip install pandoc
-  - pip install utils codecov pytest
+  - pip install utils codecov pytest watermark nbsphinx
   - python --version
 #  - bash miniconda.sh -b -p $HOME/miniconda -f -u
   - export PATH="$HOME/.cache/pip:$HOME/miniconda/bin:$PATH"
