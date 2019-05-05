@@ -120,8 +120,8 @@ install:
 #  - conda update -q conda
 
 #  - $HOME/miniconda/bin/conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f environment.yml
-  - $HOME/miniconda/bin/conda conda env update -f environment.yml
-  - source activate #test-environment
+  - $HOME/miniconda/bin/conda env update  -n test-environment python=$TRAVIS_PYTHON_VERSION -f environment.yml
+  - source activate test-environment
 
 #  - conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f environment.yml
 #  - source activate test-environment
