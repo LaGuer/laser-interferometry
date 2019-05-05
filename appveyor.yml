@@ -50,6 +50,7 @@ install:
     - cmd: conda install patch psutil
     - cmd: python -m pip install --upgrade pip
     - cmd: python -m pip install recipes
+    - cmd: conda env update -f environment.yml
 #    - cmd: pip install -r requirements.txt
 
 # Skip .NET project specific build phase.
