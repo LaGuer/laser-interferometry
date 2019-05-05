@@ -1,0 +1,178 @@
+# http://travis-ci.org/#!/LaGuer/laser-interferometry
+language: python            # this works for Linux but is an error on macOS or Windows
+cache: pip
+codecov: true
+matrix:
+  include:
+    - name: "Python 3.7 on Xenial Linux"
+      os: linux
+      sudo: true
+      addons:
+        apt:
+          packages:
+            - pandoc
+
+      env:
+        global:
+          - PATH=$TRAVIS_BUILD_DIR/pandoc:$PATH
+          - secure: =
+
+      
+      python: 3.7           # this works for Linux but is ignored on macOS or Windows
+      dist: xenial          # required for Python >= 3.7
+      before_install: wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh ; bash miniconda.sh -b -p $HOME/miniconda -f -u
+      env: TRAVIS_PYTHON_VERSION=3.7
+#    - name: "Python 3.7.2 on macOS"
+#      os: osx
+#      osx_image: xcode10.2  # Python 3.7.2 running on macOS 10.14.3
+#      language: shell       # 'language: python' is an error on Travis CI macOS
+#      before_install: brew install librsvg pandoc homebrew/cask/basictex; wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O miniconda.sh ; bash miniconda.sh -b -p $HOME/miniconda -f -u
+#    - name: "Python 3.7.3 on Windows"
+#      os: windows           # Windows 10.0.17134 N/A Build 17134
+#      language: bash       # 'language: python' is an error on Travis CI Windows
+#      before_install: choco install python ;  choco install miniconda3 ; $HOME/miniconda/bin/conda info -a ; /c/tools//miniconda3/bin/conda info -a
+#      env: PATH=/c/Python37:/c/Python37/Scripts:/c/Users/travis/miniconda/scripts:/c/Users/travis/miniconda/:$PATH
+
+ 
+  allow_failures:
+    - os: windows
+#    - os: osx
+      
+before_install:
+  
+  - |
+    
+    if [[ "$TRAVIS_OS_NAME" == "osx" ]] && [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
+      env | sort
+      if ! which python$TRAVIS_PYTHON_VERSION; then
+        wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O miniconda.sh
+      fi
+      python3 -m pip install virtualenv
+      python3 -m virtualenv -p $(which python$TRAVIS_PYTHON_VERSION) ~/travis-env
+      source ~/travis-env/bin/activate
+    fi
+  - python --version
+  - ls; pwd
+#  - wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O miniconda.sh
+#  - bash miniconda.sh -b -p $HOME/miniconda -f -u
+  - ls; pwd
+#  - sudo find / -name "conda" -print
+  - $HOME/miniconda/bin/conda info -a
+
+  - |
+    
+    if [[ "$TRAVIS_OS_NAME" == "Ubuntu" ]] && [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
+      env | sort
+      if ! which python$TRAVIS_PYTHON_VERSION; then
+        wget https://repo.anaconda.com/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh
+      fi
+      python3 -m pip install virtualenv
+      python3 -m virtualenv -p $(which python$TRAVIS_PYTHON_VERSION) ~/travis-env
+      source ~/travis-env/bin/activate
+    fi
+  - python --version
+#  - wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+  - ls ; pwd
+#  - bash miniconda.sh -b -p $HOME/miniconda -f -u
+  - ls; pwd
+#  - sudo find / -name "conda" -print
+  - $HOME/miniconda/bin/conda info -a
+  
+
+  - |
+    
+    if [[ "$TRAVIS_OS_NAME" == "windows" ]] && [[ "$TRAVIS_PYTHON_VERSION" == "3.7" ]]; then
+      env | sort
+      if ! which python$TRAVIS_PYTHON_VERSION; then
+        choco install miniconda3
+      fi
+      python3 -m pip install virtualenv
+      python3 -m virtualenv -p $(which python$TRAVIS_PYTHON_VERSION) ~/travis-env
+      source ~/travis-env/bin/activate
+    fi
+  - python --version
+  - pwd
+  - ls
+#  - conda info -a
+
+install: 
+  - pip3 install --upgrade pip  # all three OSes agree about 'pip3'
+#  - pip install pandoc
+  - pip install utils codecov pytest
+  - python --version
+#  - bash miniconda.sh -b -p $HOME/miniconda -f -u
+  - export PATH="$HOME/.cache/pip:$HOME/miniconda/bin:$PATH"
+  - hash -r
+
+#  - start /wait "" Miniconda3-latest-Windows-x86_64.exe /InstallationType=AllUsers /RegisterPython=1 /S /D=%UserProfile%\Miniconda3
+#  - conda config --set always_yes yes --set changeps1 no
+  - echo $HOME/miniconda/bin 
+#  - cd $HOME/miniconda/bin
+  - ls $HOME/
+# Useful for debugging any issues with conda
+  - $HOME/miniconda/bin/conda info -a
+#  - $HOME/miniconda/bin/conda install -c conda-forge -c pkgw-forge tectonic
+  - $HOME/miniconda/bin/conda install -y -c anaconda jupyter
+#  - $HOME/miniconda/bin/conda install -y -c conda-forge jupyter_latex_envs nbformat tectonic
+#  - $HOME/miniconda/bin/conda install -y -c conda-forge nbformat
+  - $HOME/miniconda/bin/conda install -y -c conda-forge tectonic
+  - $HOME/miniconda/bin/conda config --set always_yes yes --set changeps1 no
+#  - conda update -q conda
+
+  - $HOME/miniconda/bin/conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f environment.yml
+  - source activate test-environment
+
+#  - conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f environment.yml
+#  - source activate test-environment
+#  - conda info --envs
+
+#  - pip install -U pip setuptools # Travis breaks without this
+#  - pip install -r requirements.txt
+#  - sudo find / -name "jupyter" -print
+#  - pip3 install jupyter
+#  - pip3 install nbformat
+  - jupyter nbextension enable --py widgetsnbextension
+#  - pip3 install jupyter_latex_envs
+#  - jupyter nbextension install --py latex_envs
+#  - jupyter nbextension enable --py latex_envs
+  - wget https://github.com/laguer/slideshow/archive/master.zip
+  - unzip master.zip
+  - mv slideshow-master slideshow
+   
+# 'python' points to Python 2.7 on macOS but points to Python 3.7 on Linux and Windows
+# 'python3' is a 'command not found' error on Windows but 'py' works on Windows only
+#script: python3 my_app.py || python my_app.py
+script:
+  - cd $HOME/build/LaGuer/laser-interferometry/ && ls
+#  - sudo find / -name "sudo" -print
+#  - build/LaGuer/Jupyter-Notebook-Practice-Physical-Constants-Ratios/test_nb.py
+  - ls && pwd
+  - python test_nb.py  || python test_nb.py || python test_nb.py
+  - python3 test_nb.py  || python3 test_nb.py || python3 test_nb.py
+  - cp 01_Introduction/01_Getting_Started/*.ipynb tmp/
+  - cp 02_Plane_waves/01_Fabry_Perot_cavity/*.ipynb tmp/
+  - cp 02_Plane_waves/02_Michelson_interferometer/*.ipynb tmp/
+  - cp 02_Plane_waves/03_Optical_modulation/*.ipynb tmp/
+  - cp 02_Plane_waves/04_Demodulation/*.ipynb tmp/
+  - jupyter nbconvert tmp/*.ipynb --to slides --reveal-prefix=scripts/HTML_conversion
+  - jupyter nbconvert tmp/*.ipynb --to latex  --reveal-prefix=scripts/HTML_conversion
+#  - jupyter nbconvert *.ipynb --to slides --post serve
+#  - jupyter nbconvert test1.ipynb --to latex  --reveal-prefix=slideshow
+#  - jupyter nbconvert --to slides_with_lenvs slide-example2.ipynb
+#  - ls && whereis tectonic
+#  - jupyter nbconvert --to html_with_toclenvs slide-example.ipynb
+  
+after_success: |
+  if [ -n "$GITLAB_API_KEY" ]; then
+    git checkout --orphan gh-pages
+    git rm -rf --cached .
+    rm ./tmp/index.html
+    cp tmp/*.html scripts/HTML_conversion/
+    mv tmp/*.tex scripts/HTML_conversion/
+#    mv slide-example1_files slideshow/slide-example1_files
+    tectonic tmp/*.tex --print
+    git add -f --ignore-errors tmp/ scripts/HTML_conversion/
+    git -c user.name='travis' -c user.email='travis' commit -m init
+    git push -f -q https://$GITLAB_USER:$GITLAB_API_KEY@gitlab.com/$TRAVIS_REPO_SLUG gh-pages
+    codecov
+  fi
