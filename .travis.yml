@@ -98,7 +98,7 @@ before_install:
 install: 
   - pip3 install --upgrade pip  # all three OSes agree about 'pip3'
 #  - pip install pandoc
-  - pip install utils codecov pytest watermark nbsphinx
+  - pip install utils codecov pytest
   - python --version
 #  - bash miniconda.sh -b -p $HOME/miniconda -f -u
   - export PATH="$HOME/.cache/pip:$HOME/miniconda/bin:$PATH"
@@ -119,8 +119,9 @@ install:
   - $HOME/miniconda/bin/conda config --set always_yes yes --set changeps1 no
 #  - conda update -q conda
 
-  - $HOME/miniconda/bin/conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f environment.yml
-  - source activate test-environment
+#  - $HOME/miniconda/bin/conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f environment.yml
+  - $HOME/miniconda/bin/conda conda env update -f environment.yml
+  - source activate #test-environment
 
 #  - conda env create -n test-environment python=$TRAVIS_PYTHON_VERSION -f environment.yml
 #  - source activate test-environment
