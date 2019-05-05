@@ -169,7 +169,6 @@ after_success: |
     rm ./tmp/index.html
     cp tmp/*.html scripts/HTML_conversion/
     mv tmp/*.tex scripts/HTML_conversion/
-#    mv slide-example1_files slideshow/slide-example1_files
     tectonic tmp/*.tex --print
     git add -f --ignore-errors tmp/ scripts/HTML_conversion/
     git -c user.name='travis' -c user.email='travis' commit -m init
