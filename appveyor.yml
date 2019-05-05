@@ -49,13 +49,14 @@ install:
     # These installs are needed on windows but not other platforms.
     - cmd: conda install patch psutil
     - cmd: python -m pip install --upgrade pip
+    - cmd: python -m pip install recipes
 #    - cmd: pip install -r requirements.txt
 
 # Skip .NET project specific build phase.
 build: off
 
 test_script:
-    - "%CMD_IN_ENV% conda build recipes"
+#    - "%CMD_IN_ENV% conda build recipes"
 
     # Install the package
     - conda install --use-local %PROJECT_NAME%
