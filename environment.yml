@@ -6,3 +6,7 @@ dependencies:
   - pytest
   - watermark
   - ipywidgets >= 6.0.0
+  - ffmpeg
+  - notebook
+  - sphinx
+  - nbsphinx
