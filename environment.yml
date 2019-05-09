@@ -1,6 +1,7 @@
 name: laser-interferometry
 channels:
   - conda-forge
+  - gwoptics
   - defaults
 dependencies:
   - python>3.6
@@ -14,6 +15,7 @@ dependencies:
   - numpy
   - scipy
   - sphinx
+  - finesse
   - pip:
     - ffmpeg
     - nbsphinx
@@ -23,4 +25,4 @@ dependencies:
     - hypothesis
     - pipenv
     - datapackage
-    - jupyter-repo2docker
+#    - jupyter-repo2docker
