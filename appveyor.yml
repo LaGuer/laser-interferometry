@@ -60,12 +60,14 @@ test_script:
 #    - "%CMD_IN_ENV% conda build recipes"
 
     # Install the package
-    - conda install --use-local %PROJECT_NAME%
-
+#    - conda install --use-local %PROJECT_NAME%
+    - conda config --add channels gwoptics
+    - conda install --use-local finesse
     # Run the tests outside the source tree.
-    - pytest --cov %PROJECT_NAME% tests/
+#    - pytest --cov %PROJECT_NAME% tests/
 
 on_success:
+    - pytest --cov %PROJECT_NAME% tests/
     - echo %APPVEYOR_REPO_TAG%
     - cmd: SET PATH=%CONDA_INSTALL_LOCN%;%CONDA_INSTALL_LOCN%\Scripts;%PATH%
     # Write the output file location to a file...cannot simply use conda build --output
